@@ -88,13 +88,78 @@ void robot_O_val(_integer i){
 */
 TASK(UsrTask)
 {
+        static int initialized = 0;
+        static int white_value_d = 0;
+        static int black_value_d = 0;
+        static int white_value_g = 0;
+        static int black_value_g = 0;
+        if (initialized == 0) {
+                // initlialize white here
+                // print getting white 
+                display_goto_xy(0, 0);
+                display_string("Blanc avec un K");
+                if (ecrobot_is_ENTER_button_pressed()) {
+                        initialized ++;
+                        white_value_d = 
+                                ecrobot_get_light_sensor(NXT_PORT_S1);
+                        white_value_g = 
+                                ecrobot_get_light_sensor(NXT_PORT_S2);
+                        //get here the value of the white 
+                }
+                display_update();
+                TerminateTask();
+        }
+
+        if (initialized == 1) {
+                // initlialize white here
+                // print getting white 
+                display_goto_xy(0, 0);
+                display_string("Blanc chargé");
+                if (!ecrobot_is_ENTER_button_pressed()) {
+                        initialized ++;
+                }
+                display_update();
+                TerminateTask();
+        }       
+
+        if (initialized == 2) {
+                // initialize black here 
+                // print getting black
+                display_goto_xy(0, 0);
+                display_string("Noir avec un T");
+                if (ecrobot_is_ENTER_button_pressed()) {
+                        initialized ++;
+                        black_value_d = 
+                                ecrobot_get_light_sensor(NXT_PORT_S1);
+                        black_value_g = 
+                                ecrobot_get_light_sensor(NXT_PORT_S2);
+                        //get here the value of the black
+                }
+                display_update();
+                TerminateTask();
+        }
+        
+        if (initialized == 3) {
+                // initlialize white here
+                // print getting white 
+                display_goto_xy(0, 0);
+                display_string("Noir chargé");
+                if (!ecrobot_is_ENTER_button_pressed()) {
+                        initialized ++;
+                }
+                display_update();
+                TerminateTask();
+        }
+
 	ecrobot_device_initialize();
 	int sensor_d = ecrobot_get_light_sensor(NXT_PORT_S1);
 	int sensor_g = ecrobot_get_light_sensor(NXT_PORT_S2);
 	int sensor_sonar = ecrobot_get_sonar_sensor(NXT_PORT_S3);
-
-	sensor_d = 100 - (((sensor_d - 450) * 2) / 7);
-	sensor_g = 100 - (((sensor_g - 450) * 2) / 7);
+        
+	sensor_d = 100 - (((sensor_d - white_value_d) * 100) 
+                        / (black_value_d - white_value_d));
+	sensor_g = 100 - (((sensor_g - white_value_g) * 100) 
+                        / (black_value_g - white_value_g));
 
 	if (sensor_d > 100) 
 		sensor_d = 100;
