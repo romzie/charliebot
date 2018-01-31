@@ -11,8 +11,8 @@ int interp(_real v)
 
 	if (speed > ROBOT_MAX_SPEED)
 		speed = ROBOT_MAX_SPEED;
-	if (speed < -ROBOT_MAX_SPEED)
-		speed = -ROBOT_MAX_SPEED;
+	if (speed < -ROBOT_MAX_SPEED/2)
+		speed = -ROBOT_MAX_SPEED/2;
 
 	speed = (speed*100)/ROBOT_MAX_SPEED;
 	if (speed > MAX_SPEED_PERCENT)

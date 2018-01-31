@@ -111,10 +111,8 @@ TASK(UsrTask)
         }
 
         if (initialized == 1) {
-                // initlialize white here
-                // print getting white 
                 display_goto_xy(0, 0);
-                display_string("Blanc chargé");
+                display_string("Blanc chargé    ");
                 if (!ecrobot_is_ENTER_button_pressed()) {
                         initialized ++;
                 }
@@ -126,7 +124,7 @@ TASK(UsrTask)
                 // initialize black here 
                 // print getting black
                 display_goto_xy(0, 0);
-                display_string("Noir avec un T");
+                display_string("Noir avec un T   ");
                 if (ecrobot_is_ENTER_button_pressed()) {
                         initialized ++;
                         black_value_d = 
@@ -140,10 +138,29 @@ TASK(UsrTask)
         }
         
         if (initialized == 3) {
-                // initlialize white here
-                // print getting white 
                 display_goto_xy(0, 0);
-                display_string("Noir chargé");
+                display_string("Noir chargé     ");
+                if (!ecrobot_is_ENTER_button_pressed()) {
+                        initialized ++;
+                }
+                display_update();
+                TerminateTask();
+        
+        }
+
+        if (initialized == 4) {
+                display_goto_xy(0, 0);
+                display_string("  PRESS ENTER!  ");
+                if (ecrobot_is_ENTER_button_pressed()) {
+                        initialized ++;
+                }
+                display_update();
+                TerminateTask();
+        }
+        
+        if (initialized == 4) {
+                display_goto_xy(0, 0);
+                display_string("                ");
                 if (!ecrobot_is_ENTER_button_pressed()) {
                         initialized ++;
                 }
